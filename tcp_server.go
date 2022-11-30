@@ -63,7 +63,7 @@ func NewTcpServerFromENV(old_fd uintptr) (*TcpServer, error) {
 
 	file = os.NewFile(old_fd, DEFAULT_SOCKET_FILE)
 	if file == nil {
-		return errors.New("bad file fd")
+		return nil, errors.New("bad file fd")
 	}
 
 	if listener, err = net.FileListener(file); err != nil {
@@ -79,7 +79,7 @@ func NewTcpServerFromENV(old_fd uintptr) (*TcpServer, error) {
 }
 
 // handleAccept ...
-func (s *TcpServer) handleAccept(handleTcpConn HandleTcpConns) {
+func (s *TcpServer) HandleAccept(handleTcpConn HandleTcpConns) {
 	for {
 		conn, err := s.listenSock.Accept()
 		if err != nil {
@@ -97,7 +97,7 @@ func (s *TcpServer) handleAccept(handleTcpConn HandleTcpConns) {
 }
 
 // getListenerFD ...
-func (s *TcpServer) getListenerFD() (uintptr, error) {
+func (s *TcpServer) GetListenerFD() (uintptr, error) {
 	file, err := s.listenSock.File()
 	if err != nil {
 		return 0, err
@@ -106,7 +106,7 @@ func (s *TcpServer) getListenerFD() (uintptr, error) {
 }
 
 //stopAccept ...
-func (s *TcpServer) stopAccept() {
+func (s *TcpServer) StopAccept() {
 	s.listenSock.SetDeadline(time.Now())
 }
 

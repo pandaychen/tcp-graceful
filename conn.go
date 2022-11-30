@@ -12,9 +12,9 @@ func NewTcpConnManager() *TcpConnManager {
 	return m
 }
 
-func (m *TcpConnManager) Add(num int) {
+func (m *TcpConnManager) Add(num int64) {
 	m.counter += num
-	m.WaitGroup.Add(num)
+	m.WaitGroup.Add(int(num))
 }
 
 func (m *TcpConnManager) Done() {
