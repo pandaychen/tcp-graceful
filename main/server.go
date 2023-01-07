@@ -85,7 +85,7 @@ func main() {
 				Env:   os.Environ(),
 				Files: []uintptr{os.Stdin.Fd(), os.Stdout.Fd(), os.Stderr.Fd(), listenerFD},
 			}
-			_, err := syscall.ForkExec(os.Args[0], os.Args, execSpec)
+			_, err = syscall.ForkExec(os.Args[0], os.Args, execSpec)
 			if err != nil {
 				os.Exit(1)
 			}
